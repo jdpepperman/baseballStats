@@ -33,7 +33,13 @@ class Batters:
 		for player in self.batters:
 			player.score = player.r*r + player.h*h + player.b2*b2 + player.b3*b3 + player.hr*hr + player.rbi*rbi + player.sb*sb + player.cs*cs + player.bb*bb
 
+	def getPlayer(self, playerName):
+		for player in self.batters:
+			if player.name == playerName:
+				return player
+
 	def sortBy(self, index):
+		self.index = index
 		if index == 'score':
 			self.batters.sort(key=lambda x: x.score, reverse=True)
 		elif index == 'ab':
@@ -66,6 +72,48 @@ class Batters:
 			self.batters.sort(key=lambda x: x.slg, reverse=True)
 		elif index == 'war':
 			self.batters.sort(key=lambda x: x.war, reverse=True)
+		elif index == 'gp':
+			self.batters.sort(key=lambda x: x.gp, reverse=True)
+		elif index == 'tpa':
+			self.batters.sort(key=lambda x: x.tpa, reverse=True)
+		elif index == 'pit':
+			self.batters.sort(key=lambda x: x.pit, reverse=True)
+		elif index == 'p2pa':
+			self.batters.sort(key=lambda x: x.p2pa, reverse=True)
+		elif index == 'tb':
+			self.batters.sort(key=lambda x: x.tb, reverse=True)
+		elif index == 'xbh':
+			self.batters.sort(key=lambda x: x.xbh, reverse=True)
+		elif index == 'hbp':
+			self.batters.sort(key=lambda x: x.hbp, reverse=True)
+		elif index == 'ibb':
+			self.batters.sort(key=lambda x: x.ibb, reverse=True)
+		elif index == 'gdp':
+			self.batters.sort(key=lambda x: x.gdp, reverse=True)
+		elif index == 'sh':
+			self.batters.sort(key=lambda x: x.sh, reverse=True)
+		elif index == 'sf':
+			self.batters.sort(key=lambda x: x.sf, reverse=True)
+		elif index == 'rc':
+			self.batters.sort(key=lambda x: x.rc, reverse=True)
+		elif index == 'rc27':
+			self.batters.sort(key=lambda x: x.rc27, reverse=True)
+		elif index == 'isop':
+			self.batters.sort(key=lambda x: x.isop, reverse=True)
+		elif index == 'seca':
+			self.batters.sort(key=lambda x: x.seca, reverse=True)
+		elif index == 'gb':
+			self.batters.sort(key=lambda x: x.gb, reverse=True)
+		elif index == 'fb':
+			self.batters.sort(key=lambda x: x.fb, reverse=True)
+		elif index == 'g2f':
+			self.batters.sort(key=lambda x: x.g2f, reverse=True)
+		elif index == 'ab2hr':
+			self.batters.sort(key=lambda x: x.ab2hr, reverse=True)
+		elif index == 'bb2pa':
+			self.batters.sort(key=lambda x: x.bb2pa, reverse=True)
+		elif index == 'bb2k':
+			self.batters.sort(key=lambda x: x.bb2k, reverse=True)
 		else:
 			pass
 

@@ -13,18 +13,21 @@ def find_nth(haystack, needle, n):
 
 batters = Batters()
 
-#playerLinks = ["http://espn.go.com/mlb/stats/batting/_/sort/atBats/order/true","http://espn.go.com/mlb/stats/batting/_/sort/runs/order/true","http://espn.go.com/mlb/stats/batting/_/sort/hits/order/true","http://espn.go.com/mlb/stats/batting/_/sort/doubles/order/true","http://espn.go.com/mlb/stats/batting/_/sort/triples/order/true","http://espn.go.com/mlb/stats/batting/_/sort/homeRuns/order/true","http://espn.go.com/mlb/stats/batting/_/sort/RBIs/order/true","http://espn.go.com/mlb/stats/batting/_/sort/stolenBases/order/true","http://espn.go.com/mlb/stats/batting/_/sort/caughtStealing/order/true","http://espn.go.com/mlb/stats/batting/_/sort/walks/order/true","http://espn.go.com/mlb/stats/batting/_/sort/strikeouts/order/true","http://espn.go.com/mlb/stats/batting/_/order/true","http://espn.go.com/mlb/stats/batting/_/sort/onBasePct/order/true","http://espn.go.com/mlb/stats/batting/_/sort/slugAvg/order/true","http://espn.go.com/mlb/stats/batting/_/sort/OPS/order/true","http://espn.go.com/mlb/stats/batting/_/sort/WARBR/order/true"]
-playerLinks = ["http://espn.go.com/mlb/stats/batting/_/sort/atBats/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/41/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/81/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/121/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/161/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/201/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/241/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/281/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/321/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/361/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/401/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/441/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/481/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/521/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/561/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/601/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/641/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/681/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/721/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/761/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/801/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/841/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/881/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/921/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/961/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1001/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1041/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1081/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1121/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1161/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1201/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1241/qualified/false","http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/1281/qualified/false"]
+playerLinks = ["http://espn.go.com/mlb/stats/batting/_/sort/atBats/qualified/false"]
+i = 1
+while i <= 1281:
+	i = i + 40
+	playerLinks.append("http://espn.go.com/mlb/stats/batting/_/sort/atBats/count/"+ str(i) + "/qualified/false")
 
 expandedStatLinks = ["http://espn.go.com/mlb/stats/batting/_/type/expanded"]
 i = 1
-while i <= 1281:
+while i <= 121:
 	i = i + 40
 	expandedStatLinks.append("http://espn.go.com/mlb/stats/batting/_/count/" + str(i) + "/qualified/true/type/expanded")
 
 saberStatLinks = ["http://espn.go.com/mlb/stats/batting/_/type/sabermetric"]
 i = 1
-while i <= 1281:
+while i <= 121:
 	i = i + 40
 	saberStatLinks.append("http://espn.go.com/mlb/stats/batting/_/count/" + str(i) + "/qualified/true/type/sabermetric")
 
@@ -56,7 +59,6 @@ for pl in playerLinks:
                 p = p[p.index("</td>")+5:]
                 p = p[p.index("</td>")+5:]
                 ab = p[p.index(">")+1:find_nth(p, "<", 2)]
-		if ab != 0: data = True
                 p = p[p.index("</td>")+5:]
                 r = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
@@ -91,6 +93,110 @@ for pl in playerLinks:
                 if ab != "" and not batters.hasPlayer(name):
                         newPlayer = Player(name,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war)
 			if newPlayer.hasData():
+				newPlayer.addExpandedData(0,0,0,0,0,0,0,0,0,0,0)
+				newPlayer.addSaberData(0,0,0,0,0,0,0,0,0,0)
                         	batters.addPlayer(newPlayer)
+
+for pl in expandedStatLinks:
+        response = urllib2.urlopen(pl)
+        html = response.read()
+
+        htmlLines = []
+        lineToAdd = ""
+        for char in html:
+                if '\n' in char:
+                        if "PLAYER" in lineToAdd:
+                                htmlLines.append(lineToAdd)
+                        lineToAdd = ""
+                else:
+                        lineToAdd = lineToAdd + char
+
+        for h in htmlLines:
+                playerHtml = ""
+                playerHtmlLines = []
+                while "</tr>" in h:
+                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
+                        playerHtmlLines.append(playerHtml)
+                        h = h[h.index("</tr>")+5:]
+
+	for p in playerHtmlLines:
+                p = p[p.index("</td>")+5:]
+                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("</td>")+5:]
+                p = p[p.index("</td>")+5:]
+                gp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                p = p[p.index("</td>")+5:]
+                tpa = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                pit = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                p2pa = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                tb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                xbh = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                hbp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                ibb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                gdp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                sh = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                sf = p[p.index(">")+1:find_nth(p, "<", 2)]
+                if gp != "":
+			batters.getPlayer(name).addExpandedData(gp, tpa, pit, p2pa, tb, xbh, hbp, ibb, gdp, sh, sf)
+
+for pl in saberStatLinks:
+        response = urllib2.urlopen(pl)
+        html = response.read()
+
+        htmlLines = []
+        lineToAdd = ""
+        for char in html:
+                if '\n' in char:
+                        if "PLAYER" in lineToAdd:
+                                htmlLines.append(lineToAdd)
+                        lineToAdd = ""
+                else:
+                        lineToAdd = lineToAdd + char
+
+        for h in htmlLines:
+                playerHtml = ""
+                playerHtmlLines = []
+                while "</tr>" in h:
+                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
+                        playerHtmlLines.append(playerHtml)
+                        h = h[h.index("</tr>")+5:]
+
+	for p in playerHtmlLines:
+                p = p[p.index("</td>")+5:]
+                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("</td>")+5:]
+                p = p[p.index("</td>")+5:]
+                p = p[p.index("</td>")+5:]
+                rc = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                rc27 = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                isop = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                seca = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                gb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                fb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                g2f = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                ab2hr = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                bb2pa = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p = p[p.index("</td>")+5:]
+                bb2k = p[p.index(">")+1:find_nth(p, "<", 2)]
+                if rc != "":
+			batters.getPlayer(name).addSaberData(rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k)
 
 pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + time.strftime("%d-%m-%Y"), "wb"))
