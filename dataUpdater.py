@@ -57,6 +57,7 @@ for pl in playerLinks:
                 p = p[p.index("</td>")+5:]
                 name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
                 p = p[p.index("</td>")+5:]
+		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
                 ab = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
@@ -91,7 +92,7 @@ for pl in playerLinks:
                 war = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
                 if ab != "" and not batters.hasPlayer(name):
-                        newPlayer = Player(name,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war)
+                        newPlayer = Player(name,team,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war)
 			if newPlayer.hasData():
 				newPlayer.addExpandedData(0,0,0,0,0,0,0,0,0,0,0)
 				newPlayer.addSaberData(0,0,0,0,0,0,0,0,0,0)
@@ -199,4 +200,10 @@ for pl in saberStatLinks:
                 if rc != "":
 			batters.getPlayer(name).addSaberData(rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k)
 
+batters.calculateScores()
+
 pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + time.strftime("%d-%m-%Y"), "wb"))
+
+csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + time.strftime("%d-%m-%Y"), "wb")
+csv.write(batters.toCSV())
+

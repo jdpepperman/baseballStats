@@ -1,6 +1,7 @@
 class Player:
-	def __init__(self, name, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops, war):
+	def __init__(self, name, team, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops, war):
 		self.name = name
+		self.team = team
 		self.ab = int(ab)
 		self.r = int(r)
 		self.h = int(h)
@@ -88,3 +89,8 @@ class Player:
 			playerString = self.name + "\t\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
 			
 		return playerString
+
+	def toCSV(self):
+		playerString = self.name + "," + str(self.ab) + "," + str(self.r) + "," + str(self.h) + "," + str(self.b2) + "," + str(self.b3) + "," + str(self.hr) + "," + str(self.rbi) + "," + str(self.sb) + "," + str(self.cs) + "," + str(self.bb) + "," + str(self.so) + "," + str(self.avg) + "," + str(self.obp) + "," + str(self.slg) + "," + str(self.ops) + "," + str(self.war) + "," + str(self.score)
+
+                return playerString
