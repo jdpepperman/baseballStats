@@ -11,7 +11,17 @@ class Batters:
 	def __len__(self):
 		return len(self.batters)
 
+	def indexOf(self, player):
+		index = 0
+		for p in self.batters:
+			if p == player:
+				return index
+			else:
+				index = index + 1
+		return -1
+
 	def addPlayer(self, batter):
+		#batter.calculateScore()
 		self.batters.append(batter)
 
 	def hasPlayer(self, playerName):

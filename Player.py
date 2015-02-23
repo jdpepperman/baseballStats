@@ -20,6 +20,25 @@ class Player:
 		self.war = float(war)
 		self.score = 0
 
+	def __eq__(self, other):
+		return self.name == other.name and self.team == other.team #and self.ab == other.ab and self.r == other.r and self.avg == other.avg and self.war == other.war
+	
+	def __ne__(self, other):
+		return self.name != other.name or self.team != other.team #or self.ab != other.ab or self.r != other.r or self.avg != other.avg or self.war != other.war
+
+	def calculateScore(self):
+		r = 1
+	        h = 1
+	        b2 = 2
+	        b3 = 3
+	        hr = 4
+	        rbi = 1
+	        sb = 2
+	        cs = -1
+	        bb = 1
+
+		self.score = self.r*r + self.h*h + self.b2*b2 + self.b3*b3 + self.hr*hr + self.rbi*rbi + self.sb*sb + self.cs*cs + self.bb*bb 
+
 	def addSaberData(self, rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k):
 		self.rc = float(rc)
 		self.rc27 = float(rc27)
@@ -44,6 +63,50 @@ class Player:
 		self.gdp = int(gdp)
 		self.sh = int(sh)
 		self.sf = int(sf)
+
+	def getStat(self, stat):
+		statDict = {
+				'ab'	:	self.ab,
+				'r'	:	self.r,
+				'h'	:	self.h,
+				'b2'	:	self.b2,
+				'b3'	:	self.b3,
+				'hr'	:	self.hr,
+				'rbi'	:	self.rbi,
+				'sb'	:	self.sb,
+				'cs'	:	self.cs,
+				'bb'	:	self.bb,
+				'so'	:	self.so,
+				'avg'	:	self.avg,
+				'obp'	:	self.obp,
+				'slg'	:	self.slg,
+				'ops'	:	self.ops,
+				'war'	:	self.war,
+				'rc'	:	self.rc,
+				'rc27'	:	self.rc27,
+				'isop'	:	self.isop,
+				'seca'	:	self.seca,
+				'gb'	:	self.gb,
+				'fb'	:	self.fb,
+				'g2f'	:	self.g2f,
+				'ab2hr'	:	self.ab2hr,
+				'bb2pa'	:	self.bb2pa,
+				'bb2k'	:	self.bb2k,
+				'gp'	:	self.gp,
+				'tpa'	:	self.tpa,
+				'pit'	:	self.pit,
+				'p2pa'	:	self.p2pa,
+				'tb'	:	self.tb,
+				'xbh'	:	self.xbh,
+				'hbp'	:	self.hbp,
+				'gdp'	:	self.gdp,
+				'sh'	:	self.sh,
+				'sf'	:	self.sf,
+				'score'	:	self.score
+			}
+		return statDict[stat]
+
+
 
 	def hasData(self):
 		if self.ab != 0: 
