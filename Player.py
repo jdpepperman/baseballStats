@@ -1,30 +1,52 @@
 class Player:
 	def __init__(self, name, team, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops, war):
-		self.name = name
-		self.team = team
-		self.ab = int(ab)
-		self.r = int(r)
-		self.h = int(h)
-		self.b2 = int(b2)
-		self.b3 = int(b3)
-		self.hr = int(hr)
-		self.rbi = int(rbi)
-		self.sb = int(sb)
-		self.cs = int(cs)
-		self.bb = int(bb)
-		self.so = int(so)
-		self.avg = float(avg)
-		self.obp = float(obp)
-		self.slg = float(slg)
-		self.ops = float(ops)
-		self.war = float(war)
-		self.score = 0
+		self.statDict = {
+				'name'	:	name,
+				'team'	:	team,
+				'ab'	:	int(ab),
+				'r'	:	int(r),
+				'h'	:	int(h),
+				'b2'	:	int(b2),
+				'b3'	:	int(b3),
+				'hr'	:	int(hr),
+				'rbi'	:	int(rbi),
+				'sb'	:	int(sb),
+				'cs'	:	int(cs),
+				'bb'	:	int(bb),
+				'so'	:	int(so),
+				'avg'	:	float(avg),
+				'obp'	:	float(obp),
+				'slg'	:	float(slg),
+				'ops'	:	float(ops),
+				'war'	:	float(war),
+				'rc'	:	0,
+				'rc27'	:	0,
+				'isop'	:	0,
+				'seca'	:	0,
+				'gb'	:	0,
+				'fb'	:	0,
+				'g2f'	:	0,
+				'ab2hr'	:	0,
+				'bb2pa'	:	0,
+				'bb2k'	:	0,
+				'gp'	:	0,
+				'tpa'	:	0,
+				'pit'	:	0,
+				'p2pa'	:	0,
+				'tb'	:	0,
+				'xbh'	:	0,
+				'hbp'	:	0,
+				'gdp'	:	0,
+				'sh'	:	0,
+				'sf'	:	0,
+				'score'	:	0
+			}
 
 	def __eq__(self, other):
-		return self.name == other.name and self.team == other.team #and self.ab == other.ab and self.r == other.r and self.avg == other.avg and self.war == other.war
+		return self.statDict['name'] == other.getStat('name') and self.statDict['team'] == other.getStat('team') #and self.ab == other.ab and self.r == other.r and self.avg == other.avg and self.war == other.war
 	
 	def __ne__(self, other):
-		return self.name != other.name or self.team != other.team #or self.ab != other.ab or self.r != other.r or self.avg != other.avg or self.war != other.war
+		return self.statDict['name'] != other.getStat('name') or self.statDict['team'] != other.getStat('team') #or self.ab != other.ab or self.r != other.r or self.avg != other.avg or self.war != other.war
 
 	def calculateScore(self):
 		r = 1
@@ -37,73 +59,34 @@ class Player:
 	        cs = -1
 	        bb = 1
 
-		self.score = self.r*r + self.h*h + self.b2*b2 + self.b3*b3 + self.hr*hr + self.rbi*rbi + self.sb*sb + self.cs*cs + self.bb*bb 
+		self.statDict['score']= self.r*r + self.h*h + self.b2*b2 + self.b3*b3 + self.hr*hr + self.rbi*rbi + self.sb*sb + self.cs*cs + self.bb*bb 
 
 	def addSaberData(self, rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k):
-		self.rc = float(rc)
-		self.rc27 = float(rc27)
-		self.isop = float(isop)
-		self.seca = float(seca)
-		self.gb = int(gb)
-		self.fb = int(fb)
-		self.g2f = float(g2f)
-		self.ab2hr = float(ab2hr)
-		self.bb2pa = float(bb2pa)
-		self.bb2k = float(bb2k)
+		self.statDict['rc']= float(rc)
+		self.statDict['rc27']= float(rc27)
+		self.statDict['isop']= float(isop)
+		self.statDict['seca']= float(seca)
+		self.statDict['gb']= int(gb)
+		self.statDict['fb']= int(fb)
+		self.statDict['g2f']= float(g2f)
+		self.statDict['ab2hr']= float(ab2hr)
+		self.statDict['bb2pa']= float(bb2pa)
+		self.statDict['bb2k']= float(bb2k)
 
 	def addExpandedData(self, gp, tpa, pit, p2pa, tb, xbh, hbp, ibb, gdp, sh, sf):
-		self.gp = int(gp)
-		self.tpa = int(tpa)
-		self.pit = int(pit)
-		self.p2pa = float(p2pa)
-		self.tb = int(tb)
-		self.xbh = int(xbh)
-		self.hbp = int(hbp)
-		self.ibb = int(ibb)
-		self.gdp = int(gdp)
-		self.sh = int(sh)
-		self.sf = int(sf)
+		self.statDict['gp']= int(gp)
+		self.statDict['tpa']= int(tpa)
+		self.statDict['pit']= int(pit)
+		self.statDict['p2pa']= float(p2pa)
+		self.statDict['tb']= int(tb)
+		self.statDict['xbh']= int(xbh)
+		self.statDict['hbp']= int(hbp)
+		self.statDict['ibb']= int(ibb)
+		self.statDict['gdp']= int(gdp)
+		self.statDict['sh']= int(sh)
+		self.statDict['sf']= int(sf)
 
 	def getStat(self, stat):
-		statDict = {
-				'ab'	:	self.ab,
-				'r'	:	self.r,
-				'h'	:	self.h,
-				'b2'	:	self.b2,
-				'b3'	:	self.b3,
-				'hr'	:	self.hr,
-				'rbi'	:	self.rbi,
-				'sb'	:	self.sb,
-				'cs'	:	self.cs,
-				'bb'	:	self.bb,
-				'so'	:	self.so,
-				'avg'	:	self.avg,
-				'obp'	:	self.obp,
-				'slg'	:	self.slg,
-				'ops'	:	self.ops,
-				'war'	:	self.war,
-				'rc'	:	self.rc,
-				'rc27'	:	self.rc27,
-				'isop'	:	self.isop,
-				'seca'	:	self.seca,
-				'gb'	:	self.gb,
-				'fb'	:	self.fb,
-				'g2f'	:	self.g2f,
-				'ab2hr'	:	self.ab2hr,
-				'bb2pa'	:	self.bb2pa,
-				'bb2k'	:	self.bb2k,
-				'gp'	:	self.gp,
-				'tpa'	:	self.tpa,
-				'pit'	:	self.pit,
-				'p2pa'	:	self.p2pa,
-				'tb'	:	self.tb,
-				'xbh'	:	self.xbh,
-				'hbp'	:	self.hbp,
-				'gdp'	:	self.gdp,
-				'sh'	:	self.sh,
-				'sf'	:	self.sf,
-				'score'	:	self.score
-			}
 		return statDict[stat]
 
 
@@ -146,14 +129,14 @@ class Player:
 
 	def toString(self):
 #		statString = "NAME\tAB\tR\tH\t2B\t3B\tHR\tRBI\tSB\tCS\tBB\tSO\tAVG\tOBP\tSLG\tOPS\tWAR"
-		if len(self.name) > 15:
-			playerString = self.name + "\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
+		if len(self.statDict['name']) > 15:
+			playerString = self.statDict['name'] + "\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
 		else:
-			playerString = self.name + "\t\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
+			playerString = self.statDict['name'] + "\t\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
 			
 		return playerString
 
 	def toCSV(self):
-		playerString = self.name + "," + str(self.ab) + "," + str(self.r) + "," + str(self.h) + "," + str(self.b2) + "," + str(self.b3) + "," + str(self.hr) + "," + str(self.rbi) + "," + str(self.sb) + "," + str(self.cs) + "," + str(self.bb) + "," + str(self.so) + "," + str(self.avg) + "," + str(self.obp) + "," + str(self.slg) + "," + str(self.ops) + "," + str(self.war) + "," + str(self.score)
+		playerString = self.statDict['name'] + "," + str(self.ab) + "," + str(self.r) + "," + str(self.h) + "," + str(self.b2) + "," + str(self.b3) + "," + str(self.hr) + "," + str(self.rbi) + "," + str(self.sb) + "," + str(self.cs) + "," + str(self.bb) + "," + str(self.so) + "," + str(self.avg) + "," + str(self.obp) + "," + str(self.slg) + "," + str(self.ops) + "," + str(self.war) + "," + str(self.score)
 
                 return playerString
