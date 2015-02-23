@@ -43,10 +43,10 @@ class Player:
 			}
 
 	def __eq__(self, other):
-		return self.statDict['name'] == other.getStat('name') and self.statDict['team'] == other.getStat('team') #and self.ab == other.ab and self.r == other.r and self.avg == other.avg and self.war == other.war
+		return self.statDict['name'] == other.getStat('name') and self.statDict['team'] == other.getStat('team') 
 	
 	def __ne__(self, other):
-		return self.statDict['name'] != other.getStat('name') or self.statDict['team'] != other.getStat('team') #or self.ab != other.ab or self.r != other.r or self.avg != other.avg or self.war != other.war
+		return self.statDict['name'] != other.getStat('name') or self.statDict['team'] != other.getStat('team') 
 
 	def calculateScore(self):
 		r = 1
@@ -59,7 +59,7 @@ class Player:
 	        cs = -1
 	        bb = 1
 
-		self.statDict['score']= self.r*r + self.h*h + self.b2*b2 + self.b3*b3 + self.hr*hr + self.rbi*rbi + self.sb*sb + self.cs*cs + self.bb*bb 
+		self.statDict['score']= self.statDict['r']*r + self.statDict['h']*h + self.statDict['b2']*b2 + self.statDict['b3']*b3 + self.statDict['hr']*hr + self.statDict['rbi']*rbi + self.statDict['sb']*sb + self.statDict['cs']*cs + self.statDict['bb']*bb 
 
 	def addSaberData(self, rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k):
 		self.statDict['rc']= float(rc)
