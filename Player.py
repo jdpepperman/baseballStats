@@ -92,37 +92,37 @@ class Player:
 
 
 	def hasData(self):
-		if self.ab != 0: 
+		if self.statDict['ab'] != 0: 
 			return True
-		elif self.r != 0: 
+		elif self.statDict['r'] != 0: 
 			return True
-		elif self.h != 0: 
+		elif self.statDict['h'] != 0: 
 			return True
-		elif self.b2 != 0: 
+		elif self.statDict['b2'] != 0: 
 			return True
-		elif self.b3 != 0: 
+		elif self.statDict['b3'] != 0: 
 			return True
-		elif self.hr != 0: 
+		elif self.statDict['hr'] != 0: 
 			return True
-		elif self.rbi != 0: 
+		elif self.statDict['rbi'] != 0: 
 			return True
-		elif self.sb != 0: 
+		elif self.statDict['sb'] != 0: 
 			return True
-		elif self.cs != 0: 
+		elif self.statDict['cs'] != 0: 
 			return True
-		elif self.bb != 0: 
+		elif self.statDict['bb'] != 0: 
 			return True
-		elif self.so != 0: 
+		elif self.statDict['so'] != 0: 
 			return True
-		elif self.avg != 0: 
+		elif self.statDict['avg'] != 0: 
 			return True
-		elif self.obp != 0: 
+		elif self.statDict['obp'] != 0: 
 			return True
-		elif self.slg != 0: 
+		elif self.statDict['slg'] != 0: 
 			return True
-		elif self.ops != 0: 
+		elif self.statDict['ops'] != 0: 
 			return True
-		elif self.war != 0: 
+		elif self.statDict['war'] != 0: 
 			return True
 		else:
 			return False
@@ -130,13 +130,13 @@ class Player:
 	def toString(self):
 #		statString = "NAME\tAB\tR\tH\t2B\t3B\tHR\tRBI\tSB\tCS\tBB\tSO\tAVG\tOBP\tSLG\tOPS\tWAR"
 		if len(self.statDict['name']) > 15:
-			playerString = self.statDict['name'] + "\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
+			playerString = self.statDict['name'] + "\t\t" + str(self.statDict['ab']) + "\t" + str(self.statDict['r']) + "\t" + str(self.statDict['h']) + "\t" + str(self.statDict['b2']) + "\t" + str(self.statDict['b3']) + "\t" + str(self.statDict['hr']) + "\t" + str(self.statDict['rbi']) + "\t" + str(self.statDict['sb']) + "\t" + str(self.statDict['cs']) + "\t" + str(self.statDict['bb']) + "\t" + str(self.statDict['so']) + "\t" + str(self.statDict['avg']) + "\t" + str(self.statDict['obp']) + "\t" + str(self.statDict['slg']) + "\t" + str(self.statDict['ops']) + "\t" + str(self.statDict['war']) + "\t" + str(self.statDict['score'])
 		else:
-			playerString = self.statDict['name'] + "\t\t\t" + str(self.ab) + "\t" + str(self.r) + "\t" + str(self.h) + "\t" + str(self.b2) + "\t" + str(self.b3) + "\t" + str(self.hr) + "\t" + str(self.rbi) + "\t" + str(self.sb) + "\t" + str(self.cs) + "\t" + str(self.bb) + "\t" + str(self.so) + "\t" + str(self.avg) + "\t" + str(self.obp) + "\t" + str(self.slg) + "\t" + str(self.ops) + "\t" + str(self.war) + "\t" + str(self.score)
+			playerString = self.statDict['name'] + "\t\t\t" + str(self.statDict['ab']) + "\t" + str(self.statDict['r']) + "\t" + str(self.statDict['h']) + "\t" + str(self.statDict['b2']) + "\t" + str(self.statDict['b3']) + "\t" + str(self.statDict['hr']) + "\t" + str(self.statDict['rbi']) + "\t" + str(self.statDict['sb']) + "\t" + str(self.statDict['cs']) + "\t" + str(self.statDict['bb']) + "\t" + str(self.statDict['so']) + "\t" + str(self.statDict['avg']) + "\t" + str(self.statDict['obp']) + "\t" + str(self.statDict['slg']) + "\t" + str(self.statDict['ops']) + "\t" + str(self.statDict['war']) + "\t" + str(self.statDict['score'])
 			
 		return playerString
 
 	def toCSV(self):
-		playerString = self.statDict['name'] + "," + str(self.ab) + "," + str(self.r) + "," + str(self.h) + "," + str(self.b2) + "," + str(self.b3) + "," + str(self.hr) + "," + str(self.rbi) + "," + str(self.sb) + "," + str(self.cs) + "," + str(self.bb) + "," + str(self.so) + "," + str(self.avg) + "," + str(self.obp) + "," + str(self.slg) + "," + str(self.ops) + "," + str(self.war) + "," + str(self.score)
+		playerString = self.statDict['name'] + "," + str(self.statDict['ab']) + "," + str(self.statDict['r']) + "," + str(self.statDict['h']) + "," + str(self.statDict['b2']) + "," + str(self.statDict['b3']) + "," + str(self.statDict['hr']) + "," + str(self.statDict['rbi']) + "," + str(self.statDict['sb']) + "," + str(self.statDict['cs']) + "," + str(self.statDict['bb']) + "," + str(self.statDict['so']) + "," + str(self.statDict['avg']) + "," + str(self.statDict['obp']) + "," + str(self.statDict['slg']) + "," + str(self.statDict['ops']) + "," + str(self.statDict['war']) + "," + str(self.statDict['score'])
 
                 return playerString
