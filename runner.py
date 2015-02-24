@@ -8,4 +8,4 @@ today = datetime.datetime.now()
 yesterday = today - timedelta(days=1)
 
 for stat in stats:
-	os.system("python /home/joshua/programming/baseball/compareBattingData.py " + yesterday.strftime("%Y-%m-%d")  + " " + today.strftime("%Y-%m-%d") + " " + stat)
+	os.system("python /home/joshua/programming/baseball/compareBattingData.py " + yesterday.strftime("%Y-%m-%d")  + " " + today.strftime("%Y-%m-%d") + " " + stat + " | mail -s \"Baseball Statistics Changes From " + yesterday.strftime("%Y-%m-%d") + " to " + today.strftime("%Y-%m-%d") + "\" joshuapepperman@gmail.com")
