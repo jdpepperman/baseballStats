@@ -206,4 +206,3 @@ pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingD
 
 csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + time.strftime("%Y-%m-%d"), "wb")
 csv.write(batters.toCSV())
-
