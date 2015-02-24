@@ -39,4 +39,9 @@ for i in range(1, len(firstBatterData)+1):
         secondPos = secondBatterData.indexOf(second)
         firstPos = firstBatterData.indexOf(second)
         if secondPos - firstPos > 1 or firstPos - secondPos > 0 or secondPos == -1 or firstPos == -1:
-            print(second.getStat('name') + ": " + str(firstPos+1) + " -> " + str(secondPos+1) + "\t" + str(second.getStat(sys.argv[3])))
+		nameAndMove = second.getStat('name') + ": " + str(firstPos+1) + " -> " + str(secondPos+1)
+		if len(nameAndMove) <= 25:
+            		print(nameAndMove + "\t\t\t" + str(second.getStat(sys.argv[3])))
+		else:
+            		print(nameAndMove + "\t\t" + str(second.getStat(sys.argv[3])))
+			
