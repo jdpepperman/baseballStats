@@ -21,7 +21,6 @@ class Batters:
 		return -1
 
 	def addPlayer(self, batter):
-		#batter.calculateScore()
 		self.batters.append(batter)
 
 	def hasPlayer(self, playerName):
@@ -119,7 +118,6 @@ class Batters:
 		batterStringFile = "name,ab,r,h,2b,3b,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war,score\n"
 		for batter in self.batters:
 			batterStringFile = batterStringFile + batter.toCSV() + '\n'
-	
 		return batterStringFile
 
 	def toString(self):

@@ -202,8 +202,8 @@ for pl in saberStatLinks:
 
 batters.calculateScores()
 
-pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + time.strftime("%d-%m-%Y"), "wb"))
+pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + time.strftime("%Y-%m-%d"), "wb"))
 
-csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + time.strftime("%d-%m-%Y"), "wb")
+csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + time.strftime("%Y-%m-%d"), "wb")
 csv.write(batters.toCSV())
 
