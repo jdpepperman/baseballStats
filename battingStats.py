@@ -1,6 +1,7 @@
 import sys
 import urllib2
-import time
+import datetime
+from datetime import timedelta
 import cPickle as pickle
 from Player import *
 from Batters import *
@@ -12,7 +13,10 @@ def find_nth(haystack, needle, n):
 		n -= 1
 	return start
 
-batters = pickle.load(open("playerData/battingDataFile_" + time.strftime("%d-%m-%Y"), "rb"))
+today = datetime.datetime.now()
+yesterday = today - timedelta(days=1)
+
+batters = pickle.load(open("playerData/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "rb"))
 
 batters.calculateScores()
 print("NAME\t\t\t\tAB\tR\tH\t2B\t3B\tHR\tRBI\tSB\tCS\tBB\tSO\tAVG\tOBP\tSLG\tOPS\tWAR\tSCORE")

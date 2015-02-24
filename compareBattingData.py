@@ -3,7 +3,7 @@ import cPickle as pickle
 from Player import *
 
 if len(sys.argv) != 4:
-	print("Pass the program the two dates to compare in dd-mm-yyy format followed by the stat to compare")
+	print("Pass the program the two dates to compare in yyyy-mm-dd format followed by the stat to compare")
         exit()
 
 firstDate = "battingDataFile_" + str(sys.argv[1])

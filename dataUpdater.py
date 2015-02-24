@@ -1,5 +1,6 @@
 import urllib2
-import time
+import datetime
+from datetime import timedelta
 import cPickle as pickle
 from Batters import *
 from Player import *
@@ -202,7 +203,10 @@ for pl in saberStatLinks:
 
 batters.calculateScores()
 
-pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + time.strftime("%Y-%m-%d"), "wb"))
+today = datetime.datetime.now()
+yesterday = today - timedelta(days=1)
 
-csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + time.strftime("%Y-%m-%d"), "wb")
+pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
+
+csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
 csv.write(batters.toCSV())

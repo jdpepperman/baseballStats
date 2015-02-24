@@ -7,13 +7,14 @@ stats = ['score','ab','r','h','b2','b3','hr','rbi','sb','cs','bb','so','avg','ob
 
 today = datetime.datetime.now()
 yesterday = today - timedelta(days=1)
+dayBeforeYesterday = yesterday - timedelta(days=1)
 
 output = ""
 
 for stat in stats:
-	command = "python /home/joshua/programming/baseball/compareBattingData.py " + yesterday.strftime("%Y-%m-%d")  + " " + today.strftime("%Y-%m-%d") + " " + stat
+	command = "python /home/joshua/programming/baseball/compareBattingData.py " + dayBeforeYesterday.strftime("%Y-%m-%d")  + " " + yesterday.strftime("%Y-%m-%d") + " " + stat
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         output = output + stat + "\n" + process.stdout.read() + "\n"
 
-os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + yesterday.strftime("%Y-%m-%d") + " to " + today.strftime("%Y-%m-%d") + "\" joshuapepperman@gmail.com")
+os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "\" joshuapepperman@gmail.com")
