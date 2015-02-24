@@ -87,9 +87,7 @@ class Player:
 		self.statDict['sf']= int(sf)
 
 	def getStat(self, stat):
-		return statDict[stat]
-
-
+		return self.statDict[stat]
 
 	def hasData(self):
 		if self.statDict['ab'] != 0: 
