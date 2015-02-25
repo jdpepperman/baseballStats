@@ -10,8 +10,8 @@ firstDate = "battingDataFile_" + str(sys.argv[1])
 secondDate = "battingDataFile_" + str(sys.argv[2])
 
 try:
-    firstBatterData = pickle.load(open("playerData/" + firstDate, "rb"))
-    secondBatterData = pickle.load(open("playerData/" + secondDate, "rb"))
+    firstBatterData = pickle.load(open("/home/joshua/programming/baseball/playerData/" + firstDate, "rb"))
+    secondBatterData = pickle.load(open("/home/joshua/programming/baseball/playerData/" + secondDate, "rb"))
 except:
     print("There was a problem with the dates you entered. Please try again with different dates.")
     exit()
