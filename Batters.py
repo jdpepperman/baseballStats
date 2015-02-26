@@ -20,10 +20,10 @@ class Batters:
 				index = index + 1
 		return -1
 
-	def addPlayer(self, batter):
+	def addBatter(self, batter):
 		self.batters.append(batter)
 
-	def hasPlayer(self, playerName):
+	def hasBatter(self, playerName):
 		for p in self.batters:
 			if p.getStat('name') == playerName:
 				return True
@@ -105,7 +105,7 @@ class Batters:
 		elif 'ARI' in team:
 			rank = 1
 
-	def getPlayer(self, playerName):
+	def getBatter(self, playerName):
 		for player in self.batters:
 			if player.getStat('name') == playerName:
 				return player

@@ -1,6 +1,6 @@
 import sys
 import cPickle as pickle
-from Player import *
+from Batter import *
 
 if len(sys.argv) != 4:
 	print("Pass the program the two dates to compare in yyyy-mm-dd format followed by the stat to compare")
@@ -18,10 +18,10 @@ except:
 
 if len(secondBatterData) < len(firstBatterData):
     while len(secondBatterData) != len(firstBatterData):
-        secondBatterData.addPlayer(Player("Placeholder", "NAN", 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+        secondBatterData.addBatter(Batter("Placeholder", "NAN", 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
 elif len(firstBatterData) < len(secondBatterData):
     while len(firstBatterData) != len(secondBatterData):
-        firstBatterData.addPlayer(Player("Placeholder", "NAN", 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+        firstBatterData.addBatter(Batter("Placeholder", "NAN", 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
 
 #now they should have an equal number of players
     

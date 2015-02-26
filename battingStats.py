@@ -3,7 +3,7 @@ import urllib2
 import datetime
 from datetime import timedelta
 import cPickle as pickle
-from Player import *
+from Batter import *
 from Batters import *
 
 def find_nth(haystack, needle, n):

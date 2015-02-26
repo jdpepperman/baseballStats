@@ -1,4 +1,4 @@
-class Player:
+class Batter:
 	def __init__(self, name, team, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops, war):
 		self.statDict = {
 				'name'	:	name,
