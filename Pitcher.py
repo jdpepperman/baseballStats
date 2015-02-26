@@ -4,6 +4,7 @@ class Pitcher:
 		self.statDict = {
 				'name'	:	name,
 				'team'	:	team,
+                                'score' :       0,
                                 'gp'    :       gp,
                                 'gs'    :       gs,
                                 'ip'    :       ip,
@@ -64,8 +65,7 @@ class Pitcher:
                                 'obbaa' :       0,
                                 'obobp' :       0,
                                 'obslg' :       0,
-                                'obops' :       0,
-                                'score' :       0
+                                'obops' :       0
 			}
             
 
