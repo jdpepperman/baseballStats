@@ -86,7 +86,7 @@ class Pitcher:
 
 		self.statDict['score'] = self.statDict['w']*w + self.statDict['l']*l + self.statDict['k']*k + self.statDict['er']*er + self.statDict['hld']*hld + self.statDict['sv']*sv + self.statDict['blsv']*blsv 
 
-	def addSaberData(self, erc, ercr, dips, dipr, tloss, cwin, pfr, babip, kp9):
+	def addSaberData(self, erc, ercr, dips, dipr, tloss, cwin, pfr, babip, k29):
 		self.statDict['erc']= float(erc)
 		self.statDict['ercr']= float(ercr)
 		self.statDict['dips']= float(dips)
@@ -95,7 +95,7 @@ class Pitcher:
 		self.statDict['cwin']= int(cwin)
 		self.statDict['pfr']= float(pfr)
 		self.statDict['babip']= float(babip)
-		self.statDict['k29']= float(kp9)
+		self.statDict['k29']= float(k29)
 
 	def addExpandedData1(self, cg, sho, tbf, gf, svo, sh, sf, hbp, gdp, wp, bk, qs, qsp):
 		self.statDict['cg']= int(cg)
