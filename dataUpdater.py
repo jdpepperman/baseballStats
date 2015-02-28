@@ -68,6 +68,8 @@ while i <= 652:
     i = i + 40
     oppPitcherLinks.append("http://espn.go.com/mlb/stats/pitching/_/count/" + str(i) + "/qualified/false/type/opponent-batting/order/false")
 
+hldPitcherLink = ["http://www.sportingcharts.com/mlb/stats/pitching-holds-leaders/2014/#"]
+
 #get the batter data from the links
 for pl in playerLinks:
         response = urllib2.urlopen(pl)
@@ -239,72 +241,6 @@ for pl in saberStatLinks:
 			batters.getBatter(name).addSaberData(rc, rc27, isop, seca, gb, fb, g2f, ab2hr, bb2pa, bb2k)
 
 #get the pitcher data from the links
-for pl in playerLinks:
-        response = urllib2.urlopen(pl)
-        html = response.read()
-
-        htmlLines = []
-        lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
-
-        for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
-
-	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
-                p = p[p.index("</td>")+5:]
-		team = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                ab = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                r = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                h = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                b2 = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                b3 = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                hr = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                rbi = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                sb = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                cs = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                bb = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                so = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                avg = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                obp = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                slg = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                ops = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                war = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
-                if ab != "" and not batters.hasBatter(name):
-                        newBatter = Batter(name,team,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war)
-			if newBatter.hasData():
-				newBatter.addExpandedData(0,0,0,0,0,0,0,0,0,0,0)
-				newBatter.addSaberData(0,0,0,0,0,0,0,0,0,0)
-                        	batters.addBatter(newBatter)
 
 
 batters.calculateScores()

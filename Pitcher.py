@@ -159,11 +159,11 @@ class Pitcher:
 		if len(self.statDict['name']) > 15:
                     playerString = playerString + self.statDict['name']
                     for key in self.mainStats:
-                    	playerString = playerString + "\t\t" + self.statDict[key] + "\t"
+                    	playerString = playerString + "\t\t" + str(self.statDict[key]) + "\t"
 		else:
 		    playerString = playerString + self.statDict['name']
                     for key in self.mainStats:
-                    	playerString = playerString + "\t\t\t" + self.statDict[key] + "\t"
+                    	playerString = playerString + "\t\t\t" + str(self.statDict[key]) + "\t"
 		return playerString
 
 	def toCSV(self):

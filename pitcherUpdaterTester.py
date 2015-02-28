@@ -3,7 +3,7 @@ import datetime
 from datetime import timedelta
 import cPickle as pickle
 from Pitchers import *
-from Pither import *
+from Pitcher import *
 
 def find_nth(haystack, needle, n):
         start = haystack.find(needle)
@@ -18,7 +18,7 @@ pitchers = Pitchers()
 #pitcher stat links
 pitcherLinks = ["http://espn.go.com/mlb/stats/pitching/_/sort/thirdInnings"]
 i = 1
-while i <= 652:
+while i <= 700:
     i = i + 40
     pitcherLinks.append("http://espn.go.com/mlb/stats/pitching/_/sort/thirdInnings/count/"+ str(i) +"/qualified/false")
 
@@ -46,6 +46,8 @@ while i <= 652:
     i = i + 40
     oppPitcherLinks.append("http://espn.go.com/mlb/stats/pitching/_/count/" + str(i) + "/qualified/false/type/opponent-batting/order/false")
 
+hldPitcherLinks = ["http://www.sportingcharts.com/mlb/stats/pitching-holds-leaders/2014/#"]
+
 #get the pitcher data from the links
 for pl in pitcherLinks:
         response = urllib2.urlopen(pl)
@@ -53,25 +55,29 @@ for pl in pitcherLinks:
 
         htmlLines = []
         lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
+        #for char in html:
+        #        if '\n' in char:
+        #                if "http://espn.go.com/mlb/player/_/id/" in lineToAdd:
+        #                        htmlLines.append(lineToAdd)
+        #                lineToAdd = ""
+        #        else:
+        #                lineToAdd = lineToAdd + char
 
+        while "<tr " in html:
+            lineToAdd = html[html.index("<tr "):html.index("</tr>")]
+            htmlLines.append(lineToAdd)
+            html = html[html.index("</tr>")+5:]
+
+        playerHtmlLines = []
         for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
+            if "http://espn.go.com/mlb/player/_/id/" in h:
+                playerHtmlLines.append(h)
 
 	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
+		print(p)
+                name = p[p.index(">")+1:p.index("</a>")]
+		print(name)
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
@@ -106,6 +112,7 @@ for pl in pitcherLinks:
                 era = p[p.index(">")+1:find_nth(p, "<", 2)]
                 if gp != "" and not pitchers.hasPitcher(name):
                         newPitcher = Pitcher(name,team,gp,gs,ip,h,r,er,bb,so,w,l,sv,blsv,war,whip,era)
+			print("Added: " + newPitcher.toString())
 			if newPitcher.hasData():
 				newPitcher.addExpandedData1(0,0,0,0,0,0,0,0,0,0,0,0,0)
 				newPitcher.addExpandedData2(0,0,0,0,0,0,0,0,0,0,0,0)
@@ -334,6 +341,35 @@ for pl in oppPitcherLinks:
                 ops = p[p.index(">")+1:find_nth(p, "<", 2)]
                 if tb != "" and not pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addOppBattingStats(tb,b2,b3,hr,rbi,ibb,sb,cs,csp,baa,slg,ops)
+		    
+for pl in hldPitcherLinks:
+    response = urllib2.urlopen(pl)
+    html = response.read()
+    
+    htmlLines = []
+    lineToAdd = ""
+    
+    for char in html:
+        if '\n' in char or '\r' in char:
+                htmlLines.append(lineToAdd)
+                lineToAdd = ""
+        else:
+                lineToAdd = lineToAdd + char
+    
+    playerHtmlLines = []
+    for h in htmlLines:
+        if "/mlb/players/" in h:
+            playerHtmlLines.append(h)
+
+    for p in playerHtmlLines:
+        p = p[p.index("/mlb/players/")+13:]
+        p = p[p.index(">")+1:]
+        name = p[:p.index("</a>")]
+        p = p[find_nth(p, "center", 3):]
+        hld = p[p.index('>')+1:p.index('<')]
+        if hld != "":
+	    print(name)
+            pitchers.getPitcher(name).addOther(hld)
 
 pitchers.calculateScores()
 

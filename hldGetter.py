@@ -31,8 +31,6 @@ for pl in pitcherLinks:
         if "/mlb/players/" in h:
             playerHtmlLines.append(h)
 
-    print(len(playerHtmlLines))
-
     for p in playerHtmlLines:
         p = p[p.index("/mlb/players/")+13:]
         p = p[p.index(">")+1:]
