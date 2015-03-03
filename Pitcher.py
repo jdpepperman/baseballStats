@@ -39,7 +39,7 @@ class Pitcher:
                                 'pit'   :       0,
                                 'p2pa'  :       0.0,
                                 'p2ip'  :       0.0,
-                                'wp'    :       0.0,
+                                'wper'    :       0.0,
                                 'ags'   :       0.0,
                                 'gb'    :       0,
                                 'fb'    :       0,
@@ -112,13 +112,13 @@ class Pitcher:
 		self.statDict['qs']= int(qs)
 		self.statDict['qsp']= float(qsp)
 
-        def addExpandedData2(self, k2bb, k29, pit, p2pa, p2ip, wp, ags, gb, fb, g2f, rs, whip):
+        def addExpandedData2(self, k2bb, k29, pit, p2pa, p2ip, wper, ags, gb, fb, g2f, rs, whip):
 		self.statDict['k2bb']= float(k2bb)
 		self.statDict['k29']= float(k29)
 		self.statDict['pit']= float(pit)
 		self.statDict['p2pa']= float(p2pa)
 		self.statDict['p2ip']= float(p2ip)
-		self.statDict['wp']= float(wp)
+		self.statDict['wper']= float(wper)
 		self.statDict['ags']= float(ags)
 		self.statDict['gb']= float(gb)
 		self.statDict['fb']= float(fb)

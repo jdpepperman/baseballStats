@@ -161,7 +161,7 @@ for pl in expanded1Links:
                 qs = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 qsp = float(p[p.index(">")+1:find_nth(p, "<", 2)])
-                if era != "" and not pitchers.hasPitcher(name):
+                if era != "" and pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addExpandedData1(cg,sho,tbf,gf,svo,sh,sf,hbp,gdp,wp,bk,qs,qsp)
 
 for pl in expanded2Links:
@@ -212,7 +212,7 @@ for pl in expanded2Links:
                 rs = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 whip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
-                if k2bb != "" and not pitchers.hasPitcher(name):
+                if k2bb != "" and pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addExpandedData2(k2bb,k29,pit,p2pa,p2ip,wp,ags,gb,fb,g2f,rs,whip)
 
 for pl in saberPitcherLinks:
@@ -257,7 +257,7 @@ for pl in saberPitcherLinks:
                 babip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 k29 = float(p[p.index(">")+1:find_nth(p, "<", 2)])
-                if erc != "" and not pitchers.hasPitcher(name):
+                if erc != "" and pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addSaberData(erc,ercr,dips,dipr,tloss,cwin,pfr,babip,k29)
                     
 for pl in oppPitcherLinks:
@@ -310,8 +310,8 @@ for pl in oppPitcherLinks:
                 slg = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 ops = float(p[p.index(">")+1:find_nth(p, "<", 2)])
-                if tb != "" and not pitchers.hasPitcher(name):
-                    pitchers.getPitcher(name).addOppBattingStats(tb,b2,b3,hr,rbi,ibb,sb,cs,csp,baa,slg,ops)
+                if tb != "" and pitchers.hasPitcher(name):
+                    pitchers.getPitcher(name).addOppBattingStats(tb,b2,b3,hr,rbi,ibb,sb,cs,csp,baa,obp,slg,ops)
 		    
 for pl in hldPitcherLinks:
     response = urllib2.urlopen(pl)
@@ -348,5 +348,5 @@ yesterday = today - timedelta(days=1)
 
 pickle.dump(pitchers, open("/home/joshua/programming/baseball/playerData/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
 
-csv = open("/home/joshua/programming/baseball/playerData/csvFiles/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
-csv.write(pitchers.toCSV())
+csvP = open("/home/joshua/programming/baseball/playerData/csvFiles/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
+csvP.write(pitchers.toCSV())
