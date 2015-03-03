@@ -38,7 +38,7 @@ class Pitchers:
                 blsv = -3
                 
                 for pitcher in self.pitchers:
-                    pitcher.statDict['score'] = pitcher.statDict['w']*w + pitcher.statDict['l']*l + pitcher.statDict['k']*k + pitcher.statDict['er']*er + pitcher.statDict['hld']*hld + pitcher.statDict['sv']*sv + pitcher.statDict['blsv']*blsv 
+                    pitcher.statDict['score'] = pitcher.statDict['w']*w + pitcher.statDict['l']*l + pitcher.statDict['so']*k + pitcher.statDict['er']*er + pitcher.statDict['hld']*hld + pitcher.statDict['sv']*sv + pitcher.statDict['blsv']*blsv 
 
 	def getStadiumRank(self, team):
 		rank = 0

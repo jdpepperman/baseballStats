@@ -16,10 +16,10 @@ def find_nth(haystack, needle, n):
 today = datetime.datetime.now()
 yesterday = today - timedelta(days=1)
 
-pitchers = pickle.load(open("playerData/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "rb"))
+pitchers = pickle.load(open("playerData/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "rb"))
 
 pitchers.calculateScores()
-print("NAME\t\t\t\tSCORE\tGP\tGS\tIP\tH\tR\tER\tBB\tSO\tW\tL\tSV\tBLSV\tWAR\tWHIP\tERA")
+print("NAME\t\t\t\tSCORE\tGP\tGS\tIP\tH\tR\tER\tBB\tSO\tW\tL\tSV\tBLSV\tWAR\tWHIP\tERA\tHLD")
 if len(sys.argv) == 2:
 	pitchers.sortBy(sys.argv[1])
 	print(pitchers.toString())

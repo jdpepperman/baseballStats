@@ -1,6 +1,6 @@
 class Pitcher:
 	def __init__(self, name, team, gp, gs, ip, h, r, er, bb, so, w, l, sv, blsv, war, whip, era):
-                self.mainStats = ['gp','gs','ip','h','r','er','bb','so','w','l','sv','blsv','war','whip','era','hld']
+                self.mainStats = ['score','gp','gs','ip','h','r','er','bb','so','w','l','sv','blsv','war','whip','era','hld']
 		self.statDict = {
 				'name'	:	name,
 				'team'	:	team,
@@ -157,19 +157,19 @@ class Pitcher:
 	def toString(self):
                 playerString = ""
 		if len(self.statDict['name']) > 15:
-                    playerString = playerString + self.statDict['name']
+                    playerString = playerString + self.statDict['name'] + "\t\t"
                     for key in self.mainStats:
-                    	playerString = playerString + "\t\t" + str(self.statDict[key]) + "\t"
+                    	playerString = playerString + str(self.statDict[key]) + "\t"
 		else:
-		    playerString = playerString + self.statDict['name']
+		    playerString = playerString + self.statDict['name'] + "\t\t\t"
                     for key in self.mainStats:
-                    	playerString = playerString + "\t\t\t" + str(self.statDict[key]) + "\t"
+                    	playerString = playerString + str(self.statDict[key]) + "\t"
 		return playerString
 
 	def toCSV(self):
                 playerString = ""
 
                 for key in self.statDict:
-                    playerString = playerString + self.statDict[key] + ","
+                    playerString = playerString + str(self.statDict[key]) + ","
 
                 return playerString[:-1]

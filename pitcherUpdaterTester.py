@@ -55,13 +55,6 @@ for pl in pitcherLinks:
 
         htmlLines = []
         lineToAdd = ""
-        #for char in html:
-        #        if '\n' in char:
-        #                if "http://espn.go.com/mlb/player/_/id/" in lineToAdd:
-        #                        htmlLines.append(lineToAdd)
-        #                lineToAdd = ""
-        #        else:
-        #                lineToAdd = lineToAdd + char
 
         while "<tr " in html:
             lineToAdd = html[html.index("<tr "):html.index("</tr>")]
@@ -75,44 +68,42 @@ for pl in pitcherLinks:
 
 	for p in playerHtmlLines:
                 p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
-		print(p)
                 name = p[p.index(">")+1:p.index("</a>")]
-		print(name)
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                gp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                gp = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                gs = p[p.index(">")+1:find_nth(p, "<", 2)]
+                gs = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                ip = p[p.index(">")+1:find_nth(p, "<", 2)]
+                ip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                h = p[p.index(">")+1:find_nth(p, "<", 2)]
+                h = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                r = p[p.index(">")+1:find_nth(p, "<", 2)]
+                r = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                er = p[p.index(">")+1:find_nth(p, "<", 2)]
+                er = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                bb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                bb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                so = p[p.index(">")+1:find_nth(p, "<", 2)]
+                so = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                w = p[p.index(">")+1:find_nth(p, "<", 2)]
+                w = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                l = p[p.index(">")+1:find_nth(p, "<", 2)]
+                l = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                sv = p[p.index(">")+1:find_nth(p, "<", 2)]
+                sv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                blsv = p[p.index(">")+1:find_nth(p, "<", 2)]
+                blsv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                war = p[p.index(">")+1:find_nth(p, "<", 2)]
+                war = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                whip = p[p.index(">")+1:find_nth(p, "<", 2)]
+                whip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                era = p[p.index(">")+1:find_nth(p, "<", 2)]
+                era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if gp != "" and not pitchers.hasPitcher(name):
                         newPitcher = Pitcher(name,team,gp,gs,ip,h,r,er,bb,so,w,l,sv,blsv,war,whip,era)
-			print("Added: " + newPitcher.toString())
+			#print("Added: " + newPitcher.toString())
 			if newPitcher.hasData():
 				newPitcher.addExpandedData1(0,0,0,0,0,0,0,0,0,0,0,0,0)
 				newPitcher.addExpandedData2(0,0,0,0,0,0,0,0,0,0,0,0)
@@ -126,55 +117,50 @@ for pl in expanded1Links:
 
         htmlLines = []
         lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
 
+        while "<tr " in html:
+            lineToAdd = html[html.index("<tr "):html.index("</tr>")]
+            htmlLines.append(lineToAdd)
+            html = html[html.index("</tr>")+5:]
+
+        playerHtmlLines = []
         for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
+            if "http://espn.go.com/mlb/player/_/id/" in h:
+                playerHtmlLines.append(h)
 
 	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
+                name = p[p.index(">")+1:p.index("</a>")]
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                era = p[p.index(">")+1:find_nth(p, "<", 2)]
+                era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                cg = p[p.index(">")+1:find_nth(p, "<", 2)]
+                cg = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                sho = p[p.index(">")+1:find_nth(p, "<", 2)]
+                sho = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                tbf = p[p.index(">")+1:find_nth(p, "<", 2)]
+                tbf = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                gf = p[p.index(">")+1:find_nth(p, "<", 2)]
+                gf = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                svo = p[p.index(">")+1:find_nth(p, "<", 2)]
+                svo = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                sh = p[p.index(">")+1:find_nth(p, "<", 2)]
+                sh = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                sf = p[p.index(">")+1:find_nth(p, "<", 2)]
+                sf = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                hbp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                hbp = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                gdp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                gdp = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                wp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                wp = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                bk = p[p.index(">")+1:find_nth(p, "<", 2)]
+                bk = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                qs = p[p.index(">")+1:find_nth(p, "<", 2)]
+                qs = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                qsp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                qsp = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if era != "" and not pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addExpandedData1(cg,sho,tbf,gf,svo,sh,sf,hbp,gdp,wp,bk,qs,qsp)
 
@@ -184,53 +170,48 @@ for pl in expanded2Links:
 
         htmlLines = []
         lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
 
+        while "<tr " in html:
+            lineToAdd = html[html.index("<tr "):html.index("</tr>")]
+            htmlLines.append(lineToAdd)
+            html = html[html.index("</tr>")+5:]
+
+        playerHtmlLines = []
         for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
+            if "http://espn.go.com/mlb/player/_/id/" in h:
+                playerHtmlLines.append(h)
 
 	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
+                name = p[p.index(">")+1:p.index("</a>")]
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                era = p[p.index(">")+1:find_nth(p, "<", 2)]
+                era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                k2bb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                k2bb = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                k29 = p[p.index(">")+1:find_nth(p, "<", 2)]
+                k29 = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                pit = p[p.index(">")+1:find_nth(p, "<", 2)]
+                pit = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                p2pa = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p2pa = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                p2ip = p[p.index(">")+1:find_nth(p, "<", 2)]
+                p2ip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                wp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                wp = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                ags = p[p.index(">")+1:find_nth(p, "<", 2)]
+                ags = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                gb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                gb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                fb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                fb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                g2f = p[p.index(">")+1:find_nth(p, "<", 2)]
+                g2f = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                rs = p[p.index(">")+1:find_nth(p, "<", 2)]
+                rs = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                whip = p[p.index(">")+1:find_nth(p, "<", 2)]
+                whip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if k2bb != "" and not pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addExpandedData2(k2bb,k29,pit,p2pa,p2ip,wp,ags,gb,fb,g2f,rs,whip)
 
@@ -240,47 +221,42 @@ for pl in saberPitcherLinks:
 
         htmlLines = []
         lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
 
+        while "<tr " in html:
+            lineToAdd = html[html.index("<tr "):html.index("</tr>")]
+            htmlLines.append(lineToAdd)
+            html = html[html.index("</tr>")+5:]
+
+        playerHtmlLines = []
         for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
+            if "http://espn.go.com/mlb/player/_/id/" in h:
+                playerHtmlLines.append(h)
 
 	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
+                name = p[p.index(">")+1:p.index("</a>")]
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                era = p[p.index(">")+1:find_nth(p, "<", 2)]
+                era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                erc = p[p.index(">")+1:find_nth(p, "<", 2)]
+                erc = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                ercr = p[p.index(">")+1:find_nth(p, "<", 2)]
+                ercr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                dips = p[p.index(">")+1:find_nth(p, "<", 2)]
+                dips = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                dipr = p[p.index(">")+1:find_nth(p, "<", 2)]
+                dipr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                tloss = p[p.index(">")+1:find_nth(p, "<", 2)]
+                tloss = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                cwin = p[p.index(">")+1:find_nth(p, "<", 2)]
+                cwin = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                pfr = p[p.index(">")+1:find_nth(p, "<", 2)]
+                pfr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                babip = p[p.index(">")+1:find_nth(p, "<", 2)]
+                babip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                k29 = p[p.index(">")+1:find_nth(p, "<", 2)]
+                k29 = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if erc != "" and not pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addSaberData(erc,ercr,dips,dipr,tloss,cwin,pfr,babip,k29)
                     
@@ -290,55 +266,50 @@ for pl in oppPitcherLinks:
 
         htmlLines = []
         lineToAdd = ""
-        for char in html:
-                if '\n' in char:
-                        if "PLAYER" in lineToAdd:
-                                htmlLines.append(lineToAdd)
-                        lineToAdd = ""
-                else:
-                        lineToAdd = lineToAdd + char
 
+        while "<tr " in html:
+            lineToAdd = html[html.index("<tr "):html.index("</tr>")]
+            htmlLines.append(lineToAdd)
+            html = html[html.index("</tr>")+5:]
+
+        playerHtmlLines = []
         for h in htmlLines:
-                playerHtml = ""
-                playerHtmlLines = []
-                while "</tr>" in h:
-                        playerHtml = h[h.index("<tr"):h.index("</tr>")]
-                        playerHtmlLines.append(playerHtml)
-                        h = h[h.index("</tr>")+5:]
+            if "http://espn.go.com/mlb/player/_/id/" in h:
+                playerHtmlLines.append(h)
 
 	for p in playerHtmlLines:
-                p = p[p.index("</td>")+5:]
-                name = p[find_nth(p, '>', 2)+1:p.index("</a>")]
+                p = p[p.index("http://espn.go.com/mlb/player/_/id/")+35:]
+                name = p[p.index(">")+1:p.index("</a>")]
                 p = p[p.index("</td>")+5:]
 		team = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                era = p[p.index(">")+1:find_nth(p, "<", 2)]
+                era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                tb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                tb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                b2 = p[p.index(">")+1:find_nth(p, "<", 2)]
+                b2 = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                b3 = p[p.index(">")+1:find_nth(p, "<", 2)]
+                b3 = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                hr = p[p.index(">")+1:find_nth(p, "<", 2)]
+                hr = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                rbi = p[p.index(">")+1:find_nth(p, "<", 2)]
+                rbi = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                ibb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                ibb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                sb = p[p.index(">")+1:find_nth(p, "<", 2)]
+                sb = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                cs = p[p.index(">")+1:find_nth(p, "<", 2)]
+                cs = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                csp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                csp = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                baa = p[p.index(">")+1:find_nth(p, "<", 2)]
+                baa = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                obp = p[p.index(">")+1:find_nth(p, "<", 2)]
+                obp = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                slg = p[p.index(">")+1:find_nth(p, "<", 2)]
+                slg = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                ops = p[p.index(">")+1:find_nth(p, "<", 2)]
+                ops = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if tb != "" and not pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addOppBattingStats(tb,b2,b3,hr,rbi,ibb,sb,cs,csp,baa,slg,ops)
 		    
@@ -366,9 +337,8 @@ for pl in hldPitcherLinks:
         p = p[p.index(">")+1:]
         name = p[:p.index("</a>")]
         p = p[find_nth(p, "center", 3):]
-        hld = p[p.index('>')+1:p.index('<')]
-        if hld != "":
-	    print(name)
+        hld = int(p[p.index('>')+1:p.index('<')])
+        if hld != "" and pitchers.getPitcher(name):
             pitchers.getPitcher(name).addOther(hld)
 
 pitchers.calculateScores()
