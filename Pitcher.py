@@ -39,7 +39,7 @@ class Pitcher:
                                 'pit'   :       0,
                                 'p2pa'  :       0.0,
                                 'p2ip'  :       0.0,
-                                'wper'    :       0.0,
+                                'wper'  :       0.0,
                                 'ags'   :       0.0,
                                 'gb'    :       0,
                                 'fb'    :       0,
