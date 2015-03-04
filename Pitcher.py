@@ -1,3 +1,5 @@
+#Joshua Pepperman
+
 class Pitcher:
 	def __init__(self, name, team, gp, gs, ip, h, r, er, bb, so, w, l, sv, blsv, war, whip, era):
                 self.mainStats = ['score','gp','gs','ip','h','r','er','bb','so','w','l','sv','blsv','war','whip','era','hld']

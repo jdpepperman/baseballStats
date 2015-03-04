@@ -1,3 +1,5 @@
+#Joshua Pepperman
+
 class Batters:
 	def __init__(self):
 		self.batters = []
