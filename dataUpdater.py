@@ -1,4 +1,5 @@
 import urllib2
+import os
 import datetime
 from datetime import timedelta
 import cPickle as pickle
@@ -540,10 +541,10 @@ pitchers.calculateScores()
 today = datetime.datetime.now()
 yesterday = today - timedelta(days=1)
 
-pickle.dump(batters, open("/home/joshua/programming/baseball/playerData/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
-pickle.dump(pitchers, open("/home/joshua/programming/baseball/playerData/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
+pickle.dump(batters, open(os.getcwd() + "/playerData/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
+pickle.dump(pitchers, open(os.getcwd() + "/playerData/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb"))
 
-csv = open("/home/joshua/programming/baseball/playerData/csvFiles/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
+csv = open(os.getcwd() + "/playerData/csvFiles/battingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
 csv.write(batters.toCSV())
-csvP = open("/home/joshua/programming/baseball/playerData/csvFiles/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
+csvP = open(os.getcwd() + "/playerData/csvFiles/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
 csvP.write(pitchers.toCSV())

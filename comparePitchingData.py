@@ -1,4 +1,5 @@
 import sys
+import os
 import cPickle as pickle
 from Pitcher import *
 
@@ -74,8 +75,8 @@ pitchingStats = {
 }
 
 try:
-    firstPitcherData = pickle.load(open("/home/joshua/programming/baseball/playerData/" + firstDate, "rb"))
-    secondPitcherData = pickle.load(open("/home/joshua/programming/baseball/playerData/" + secondDate, "rb"))
+    firstPitcherData = pickle.load(open(os.getcwd() + "/playerData/" + firstDate, "rb"))
+    secondPitcherData = pickle.load(open(os.getcwd() + "/playerData/" + secondDate, "rb"))
 except:
     print("There was a problem with the dates you entered. Please try again with different dates.")
     exit()
