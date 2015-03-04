@@ -1,4 +1,6 @@
 import os
+import re
+import sys
 import subprocess
 import datetime
 from datetime import timedelta
@@ -26,5 +28,7 @@ for stat in pitchingStats:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         output = output + process.stdout.read()
 
-
-os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "\" joshuapepperman@gmail.com")
+if len(sys.argv) == 2 and re.match(r"[^@]+@[^@]+\.[^@]+", sys.argv[1]):
+        os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "\" " + sys.argv[1])
+else:
+	print(output)

@@ -111,4 +111,3 @@ for i in range(1, len(firstPitcherData)+1):
 		else:
             		print(nameAndMove + "\t\t" + str(second.getStat(sys.argv[3])))
                         print()
-			
