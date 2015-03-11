@@ -30,4 +30,5 @@ python comparePitchingData.py 2015-03-02 2015-03-03
 This would show how pitchers moved in their ranks from March 2, 2015 to March 3, 2015.
 
 For myself, I run all these on a server I have running in my home. It runs dataUpdater.py every morning at 4:00am to get the data from the previous day's games, and then it runs runner.py after that.
+
 runner.py runs the compare program on every statistic over the last two days' data and prints it. If you supply an email address as an argument, it will send the results to that address.
