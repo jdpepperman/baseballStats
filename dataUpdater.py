@@ -550,3 +550,5 @@ csv = open(os.getcwd() + "/playerData/csvFiles/battingDataFile_" + yesterday.str
 csv.write(batters.toCSV())
 csvP = open(os.getcwd() + "/playerData/csvFiles/pitchingDataFile_" + yesterday.strftime("%Y-%m-%d"), "wb")
 csvP.write(pitchers.toCSV())
+
+print("Success")
