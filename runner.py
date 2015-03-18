@@ -19,6 +19,7 @@ output = "BATTING DATA\n\n"
 
 for stat in battingStats:
 	command = "python " + os.getcwd() + "/compareBattingData.py " + dayBeforeYesterday.strftime("%Y-%m-%d")  + " " + yesterday.strftime("%Y-%m-%d") + " " + stat
+        output += command + "\n"
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         output = output + process.stdout.read()
@@ -26,9 +27,12 @@ for stat in battingStats:
 output = output + "\nPITCHING DATA\n\n"
 for stat in pitchingStats:
 	command = "python " + os.getcwd() + "/comparePitchingData.py " + dayBeforeYesterday.strftime("%Y-%m-%d")  + " " + yesterday.strftime("%Y-%m-%d") + " " + stat
+        output += command + "\n"
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         output = output + process.stdout.read()
+
+output += "\n" + os.getcwd() + "\n"
 
 if len(sys.argv) == 2 and re.match(r"[^@]+@[^@]+\.[^@]+", sys.argv[1]):
         os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "\" " + sys.argv[1])
