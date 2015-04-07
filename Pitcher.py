@@ -1,8 +1,8 @@
 #Joshua Pepperman
 
 class Pitcher:
-	def __init__(self, name, team, gp, gs, ip, h, r, er, bb, so, w, l, sv, blsv, war, whip, era):
-                self.mainStats = ['score','gp','gs','ip','h','r','er','bb','so','w','l','sv','blsv','war','whip','era','hld']
+	def __init__(self, name, team, gp, gs, ip, h, r, er, bb, so, w, l, sv, hld, blsv, whip, era):
+                self.mainStats = ['gp','gs','ip','h','r','er','bb','so','w','l','sv','hld','blsv','whip','era']
 		self.statDict = {
 				'name'	:	name,
 				'team'	:	team,
@@ -18,11 +18,10 @@ class Pitcher:
                                 'w'     :       w,
                                 'l'     :       l,
                                 'sv'    :       sv,
+                                'hld'   :       hld,
                                 'blsv'  :       blsv,
-                                'war'   :       war,
                                 'whip'  :       whip,
                                 'era'   :       era,
-                                'hld'   :       0,
                                 'cg'    :       0,
                                 'sho'   :       0,
                                 'tbf'   :       0,
@@ -141,10 +140,6 @@ class Pitcher:
 		self.statDict['obobp']= float(obp)
 		self.statDict['obslg']= float(slg)
 		self.statDict['obops']= float(ops)
-
-        def addOther(self, hld):
-            self.statDict['hld'] =  int(hld)
-
 
 	def getStat(self, stat):
 		return self.statDict[stat]

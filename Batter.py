@@ -1,7 +1,8 @@
 #Joshua Pepperman
 
 class Batter:
-	def __init__(self, name, team, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops, war):
+	def __init__(self, name, team, ab, r, h, b2, b3, hr, rbi, sb, cs, bb, so, avg, obp, slg, ops):
+		self.mainStats = ['ab','r','h','b2','b3','hr','rbi','sb','cs','bb','so','avg','obp','slg','ops'] 
 		self.statDict = {
 				'name'	:	name,
 				'team'	:	team,
@@ -20,7 +21,6 @@ class Batter:
 				'obp'	:	float(obp),
 				'slg'	:	float(slg),
 				'ops'	:	float(ops),
-				'war'	:	float(war),
 				'rc'	:	0,
 				'rc27'	:	0,
 				'isop'	:	0,
@@ -92,51 +92,28 @@ class Batter:
 		return self.statDict[stat]
 
 	def hasData(self):
-		if self.statDict['ab'] != 0: 
-			return True
-		elif self.statDict['r'] != 0: 
-			return True
-		elif self.statDict['h'] != 0: 
-			return True
-		elif self.statDict['b2'] != 0: 
-			return True
-		elif self.statDict['b3'] != 0: 
-			return True
-		elif self.statDict['hr'] != 0: 
-			return True
-		elif self.statDict['rbi'] != 0: 
-			return True
-		elif self.statDict['sb'] != 0: 
-			return True
-		elif self.statDict['cs'] != 0: 
-			return True
-		elif self.statDict['bb'] != 0: 
-			return True
-		elif self.statDict['so'] != 0: 
-			return True
-		elif self.statDict['avg'] != 0: 
-			return True
-		elif self.statDict['obp'] != 0: 
-			return True
-		elif self.statDict['slg'] != 0: 
-			return True
-		elif self.statDict['ops'] != 0: 
-			return True
-		elif self.statDict['war'] != 0: 
-			return True
-		else:
-			return False
+		for stat in self.mainStats:
+			if self.statDict[stat] != 0:
+				return True
+
+		return False
 
 	def toString(self):
-#		statString = "NAME\tAB\tR\tH\t2B\t3B\tHR\tRBI\tSB\tCS\tBB\tSO\tAVG\tOBP\tSLG\tOPS\tWAR"
+                playerString = ""
 		if len(self.statDict['name']) > 15:
-			playerString = self.statDict['name'] + "\t\t" + str(self.statDict['ab']) + "\t" + str(self.statDict['r']) + "\t" + str(self.statDict['h']) + "\t" + str(self.statDict['b2']) + "\t" + str(self.statDict['b3']) + "\t" + str(self.statDict['hr']) + "\t" + str(self.statDict['rbi']) + "\t" + str(self.statDict['sb']) + "\t" + str(self.statDict['cs']) + "\t" + str(self.statDict['bb']) + "\t" + str(self.statDict['so']) + "\t" + str(self.statDict['avg']) + "\t" + str(self.statDict['obp']) + "\t" + str(self.statDict['slg']) + "\t" + str(self.statDict['ops']) + "\t" + str(self.statDict['war']) + "\t" + str(self.statDict['score'])
+                    playerString = playerString + self.statDict['name'] + "\t\t"
+                    for key in self.mainStats:
+                    	playerString = playerString + str(self.statDict[key]) + "\t"
 		else:
-			playerString = self.statDict['name'] + "\t\t\t" + str(self.statDict['ab']) + "\t" + str(self.statDict['r']) + "\t" + str(self.statDict['h']) + "\t" + str(self.statDict['b2']) + "\t" + str(self.statDict['b3']) + "\t" + str(self.statDict['hr']) + "\t" + str(self.statDict['rbi']) + "\t" + str(self.statDict['sb']) + "\t" + str(self.statDict['cs']) + "\t" + str(self.statDict['bb']) + "\t" + str(self.statDict['so']) + "\t" + str(self.statDict['avg']) + "\t" + str(self.statDict['obp']) + "\t" + str(self.statDict['slg']) + "\t" + str(self.statDict['ops']) + "\t" + str(self.statDict['war']) + "\t" + str(self.statDict['score'])
-			
+		    playerString = playerString + self.statDict['name'] + "\t\t\t"
+                    for key in self.mainStats:
+                    	playerString = playerString + str(self.statDict[key]) + "\t"
 		return playerString
 
 	def toCSV(self):
-		playerString = self.statDict['name'] + "," + str(self.statDict['ab']) + "," + str(self.statDict['r']) + "," + str(self.statDict['h']) + "," + str(self.statDict['b2']) + "," + str(self.statDict['b3']) + "," + str(self.statDict['hr']) + "," + str(self.statDict['rbi']) + "," + str(self.statDict['sb']) + "," + str(self.statDict['cs']) + "," + str(self.statDict['bb']) + "," + str(self.statDict['so']) + "," + str(self.statDict['avg']) + "," + str(self.statDict['obp']) + "," + str(self.statDict['slg']) + "," + str(self.statDict['ops']) + "," + str(self.statDict['war']) + "," + str(self.statDict['score'])
+                playerString = ""
 
-                return playerString
+                for key in self.statDict:
+                    playerString = playerString + str(self.statDict[key]) + ","
+
+                return playerString[:-1]

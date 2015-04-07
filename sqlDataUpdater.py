@@ -70,8 +70,6 @@ while i <= 652:
     i = i + 40
     oppPitcherLinks.append("http://espn.go.com/mlb/stats/pitching/_/count/" + str(i) + "/qualified/false/type/opponent-batting/order/false")
 
-hldPitcherLinks = ["http://www.sportingcharts.com/mlb/stats/pitching-holds-leaders/2014/#"]
-
 #get the batter data from the links
 for pl in playerLinks:
         response = urllib2.urlopen(pl)
@@ -131,10 +129,8 @@ for pl in playerLinks:
                 p = p[p.index("</td>")+5:]
                 ops = p[p.index(">")+1:find_nth(p, "<", 2)]
                 p = p[p.index("</td>")+5:]
-                war = p[p.index(">")+1:find_nth(p, "<", 2)]
-                p = p[p.index("</td>")+5:]
                 if ab != "" and not batters.hasBatter(name):
-                        newBatter = Batter(name,team,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops,war)
+                        newBatter = Batter(name,team,ab,r,h,b2,b3,hr,rbi,sb,cs,bb,so,avg,obp,slg,ops)
 			if newBatter.hasData():
 				newBatter.addExpandedData(0,0,0,0,0,0,0,0,0,0,0)
 				newBatter.addSaberData(0,0,0,0,0,0,0,0,0,0)
@@ -288,15 +284,15 @@ for pl in pitcherLinks:
                 p = p[p.index("</td>")+5:]
                 sv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                blsv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
+                hld = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                war = float(p[p.index(">")+1:find_nth(p, "<", 2)])
+                blsv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 whip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
                 era = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 if gp != "" and not pitchers.hasPitcher(name):
-                        newPitcher = Pitcher(name,team,gp,gs,ip,h,r,er,bb,so,w,l,sv,blsv,war,whip,era)
+                        newPitcher = Pitcher(name,team,gp,gs,ip,h,r,er,bb,so,w,l,sv,hld,blsv,whip,era)
 			#print("Added: " + newPitcher.toString())
 			if newPitcher.hasData():
 				newPitcher.addExpandedData1(0,0,0,0,0,0,0,0,0,0,0,0,0)
@@ -438,7 +434,21 @@ for pl in saberPitcherLinks:
                 p = p[p.index("</td>")+5:]
                 ercr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                dips = float(p[p.index(">")+1:find_nth(p, "<", 2)])
+                dips = p[p.index(">")+1:find_nth(p, "<", 2)]
+
+                #weird symbol in data on website, I can probably take this out later.
+                def is_number(s):
+                    try:
+                        float(s)
+                        return True
+                    except ValueError:
+                        return False
+
+                if not is_number(dips):
+                    dips = 0;
+                else:
+                    dips = float(p[p.index(">")+1:find_nth(p, "<", 2)])
+
                 p = p[p.index("</td>")+5:]
                 dipr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
@@ -507,35 +517,6 @@ for pl in oppPitcherLinks:
                 if tb != "" and pitchers.hasPitcher(name):
                     pitchers.getPitcher(name).addOppBattingStats(tb,b2,b3,hr,rbi,ibb,sb,cs,csp,baa,obp,slg,ops)
 		    
-for pl in hldPitcherLinks:
-    response = urllib2.urlopen(pl)
-    html = response.read()
-    
-    htmlLines = []
-    lineToAdd = ""
-    
-    for char in html:
-        if '\n' in char or '\r' in char:
-                htmlLines.append(lineToAdd)
-                lineToAdd = ""
-        else:
-                lineToAdd = lineToAdd + char
-    
-    playerHtmlLines = []
-    for h in htmlLines:
-        if "/mlb/players/" in h:
-            playerHtmlLines.append(h)
-
-    for p in playerHtmlLines:
-        p = p[p.index("/mlb/players/")+13:]
-        p = p[p.index(">")+1:]
-        name = p[:p.index("</a>")]
-        p = p[find_nth(p, "center", 3):]
-        hld = int(p[p.index('>')+1:p.index('<')])
-        if hld != "" and pitchers.getPitcher(name):
-            pitchers.getPitcher(name).addOther(hld)
-
-
 batters.calculateScores()
 pitchers.calculateScores()
 
@@ -551,7 +532,15 @@ cursor = db.cursor();
 
 for player in batters:
     try:
-        cursor.execute( """INSERT INTO batters VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""", (yesterday, player.getStat('name'), player.getStat('score'), player.getStat('team'), player.getStat('ab'), player.getStat('r'), player.getStat('h'), player.getStat('b2'), player.getStat('b3'), player.getStat('hr'), player.getStat('rbi'), player.getStat('sb'), player.getStat('cs'), player.getStat('bb'), player.getStat('so'), player.getStat('avg'), player.getStat('obp'), player.getStat('slg'), player.getStat('ops'), player.getStat('war'), player.getStat('rc'), player.getStat('rc27'), player.getStat('isop'), player.getStat('seca'), player.getStat('gb'), player.getStat('fb'), player.getStat('g2f'), player.getStat('ab2hr'), player.getStat('bb2pa'), player.getStat('bb2k'), player.getStat('gp'), player.getStat('tpa'), player.getStat('pit'), player.getStat('p2pa'), player.getStat('tb'), player.getStat('xbh'), player.getStat('hbp'), player.getStat('ibb'), player.getStat('gdp'), player.getStat('sh'), player.getStat('sf')))
+        cursor.execute( """INSERT INTO batters VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""", (yesterday, player.getStat('name'), player.getStat('score'), player.getStat('team'), player.getStat('ab'), player.getStat('r'), player.getStat('h'), player.getStat('b2'), player.getStat('b3'), player.getStat('hr'), player.getStat('rbi'), player.getStat('sb'), player.getStat('cs'), player.getStat('bb'), player.getStat('so'), player.getStat('avg'), player.getStat('obp'), player.getStat('slg'), player.getStat('ops'), player.getStat('rc'), player.getStat('rc27'), player.getStat('isop'), player.getStat('seca'), player.getStat('gb'), player.getStat('fb'), player.getStat('g2f'), player.getStat('ab2hr'), player.getStat('bb2pa'), player.getStat('bb2k'), player.getStat('gp'), player.getStat('tpa'), player.getStat('pit'), player.getStat('p2pa'), player.getStat('tb'), player.getStat('xbh'), player.getStat('hbp'), player.getStat('ibb'), player.getStat('gdp'), player.getStat('sh'), player.getStat('sf')))
         db.commit()
     except:
+        db.rollback()
+
+cursor = db.cursor();
+for player in pitchers:
+    try:
+        cursor.execute( """INSERT INTO pitchers VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""", (yesterday, player.getStat('name'), player.getStat('score'), player.getStat('team'), player.getStat('gp'), player.getStat('gs'), player.getStat('ip'), player.getStat('h'), player.getStat('r'), player.getStat('er'), player.getStat('bb'), player.getStat('so'), player.getStat('w'), player.getStat('l'), player.getStat('sv'), player.getStat('hld'), player.getStat('blsv'), player.getStat('whip'), player.getStat('era'), player.getStat('cg'), player.getStat('sho'), player.getStat('tbf'), player.getStat('gf'), player.getStat('svo'), player.getStat('sh'), player.getStat('sf'), player.getStat('hbp'), player.getStat('gdp'), player.getStat('wp'), player.getStat('bk'), player.getStat('qs'), player.getStat('qsp'), player.getStat('k2bb'), player.getStat('k29'), player.getStat('pit'), player.getStat('p2pa'), player.getStat('p2ip'), player.getStat('wper'), player.getStat('ags'), player.getStat('gb'), player.getStat('fb'), player.getStat('g2f'), player.getStat('rs'), player.getStat('erc'), player.getStat('ercr'), player.getStat('dips'), player.getStat('dipr'), player.getStat('tloss'), player.getStat('cwin'), player.getStat('pfr'), player.getStat('babip'), player.getStat('obtb'), player.getStat('obb2'), player.getStat('obb3'), player.getStat('obhr'), player.getStat('obrbi'), player.getStat('obibb'), player.getStat('obsb'), player.getStat('obcs'), player.getStat('obcsp'), player.getStat('obbaa'), player.getStat('obobp'), player.getStat('obslg'), player.getStat('obops')))
+        db.commit()
+    except MySQLdb.Error, e:
         db.rollback()
