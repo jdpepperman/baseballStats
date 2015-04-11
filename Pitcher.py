@@ -59,7 +59,7 @@ class Pitcher:
                                 'obb3'  :       0,
                                 'obhr'  :       0,
                                 'obrbi' :       0,
-                                'opibb' :       0,
+                                'obibb' :       0,
                                 'obsb'  :       0,
                                 'obcs'  :       0,
                                 'obcsp' :       0,

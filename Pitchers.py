@@ -115,7 +115,7 @@ class Pitchers:
 		self.pitchers.sort(key=lambda x: x.statDict[index], reverse=True)
 
 	def toCSV(self):
-		pitcherStringFile = "name,team,score,gp,gs,ip,h,r,er,bb,so,w,l,sv,blsv,war,whip,era,hld,cg,sho,tbf,gf,svo,sh,sf,hbp,gdp,wp,bk,qs,qsp,k2bb,k29,pit,p2pa,p2ip,wper,ags,gb,fb,g2f,rs,erc,ercr,dips,dipr,tloss,cwin,pfr,babip,obtb,obb2,obb3,obhr,obrbi,opibb,obsb,obcs,obcsp,obbaa,obobp,obslg,obops\n"
+		pitcherStringFile = "name,team,score,gp,gs,ip,h,r,er,bb,so,w,l,sv,blsv,war,whip,era,hld,cg,sho,tbf,gf,svo,sh,sf,hbp,gdp,wp,bk,qs,qsp,k2bb,k29,pit,p2pa,p2ip,wper,ags,gb,fb,g2f,rs,erc,ercr,dips,dipr,tloss,cwin,pfr,babip,obtb,obb2,obb3,obhr,obrbi,obibb,obsb,obcs,obcsp,obbaa,obobp,obslg,obops\n"
 
 		for pitcher in self.pitchers:
 			pitcherStringFile = pitcherStringFile + pitcher.toCSV() + '\n'

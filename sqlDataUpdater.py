@@ -3,6 +3,7 @@
 import urllib2
 import os
 import datetime
+import MySQLdb
 from datetime import timedelta
 from Batters import *
 from Batter import *
@@ -450,7 +451,15 @@ for pl in saberPitcherLinks:
                     dips = float(p[p.index(">")+1:find_nth(p, "<", 2)])
 
                 p = p[p.index("</td>")+5:]
-                dipr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
+                dipr = p[p.index(">")+1:find_nth(p, "<", 2)]
+
+                #weird symbol in data on website, I can probably take this out later.
+                if not is_number(dipr):
+                    dipr = 0;
+                else:
+                    dipr = float(p[p.index(">")+1:find_nth(p, "<", 2)])
+                
+
                 p = p[p.index("</td>")+5:]
                 tloss = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
@@ -525,7 +534,6 @@ yesterday = today - timedelta(days=1)
 
 #insert data into mysql database
 
-import MySQLdb
 db = MySQLdb.connect("localhost","python","pythonPaSswOrD#","baseballdb")
 
 cursor = db.cursor();
