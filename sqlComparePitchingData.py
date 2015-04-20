@@ -123,7 +123,7 @@ secondPitcherData.calculateScores()
 firstPitcherData.sortBy(sys.argv[3])
 secondPitcherData.sortBy(sys.argv[3])
 
-print(pitchingStats[sys.argv[3]] + "\n")
+print("\n" + pitchingStats[sys.argv[3]] + "\n")
 for i in range(1, len(firstPitcherData)+1):
     second = secondPitcherData[i-1]
     first = firstPitcherData[i-1]

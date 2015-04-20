@@ -96,7 +96,7 @@ secondBatterData.calculateScores()
 firstBatterData.sortBy(sys.argv[3])
 secondBatterData.sortBy(sys.argv[3])
 
-print(battingStats[sys.argv[3]] + "\n")
+print("\n" + battingStats[sys.argv[3]] + "\n")
 for i in range(1, len(firstBatterData)+1):
     second = secondBatterData[i-1]
     first = firstBatterData[i-1]

@@ -19,24 +19,26 @@ output = "BATTING DATA\n\n"
 
 for stat in battingStats:
 	command = "python " + os.getcwd() + "/sqlCompareBattingData.py " + dayBeforeYesterday.strftime("%Y-%m-%d")  + " " + yesterday.strftime("%Y-%m-%d") + " " + stat
-	print(command)
+	#print(command)
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 	out = process.stdout.read()
-	print(out)
+	#print(out)
         output = output + out
 
 output = output + "\nPITCHING DATA\n\n"
 for stat in pitchingStats:
 	command = "python " + os.getcwd() + "/sqlComparePitchingData.py " + dayBeforeYesterday.strftime("%Y-%m-%d")  + " " + yesterday.strftime("%Y-%m-%d") + " " + stat
-	print(command)
+	#print(command)
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 	out = process.stdout.read()
-	print(out)
+	#print(out)
         output = output + out
 
 if len(sys.argv) == 2 and re.match(r"[^@]+@[^@]+\.[^@]+", sys.argv[1]):
-        os.system("echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "\" " + sys.argv[1])
+        mailString = "echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "    \" " + sys.argv[1]
+	print(mailString)
+	os.system(mailString)
 else:
 	print(output)
