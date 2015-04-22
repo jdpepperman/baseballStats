@@ -38,7 +38,7 @@ for stat in pitchingStats:
 
 if len(sys.argv) == 2 and re.match(r"[^@]+@[^@]+\.[^@]+", sys.argv[1]):
         mailString = "echo \"" + output + "\" | mail -s \"Baseball Statistics Changes From " + dayBeforeYesterday.strftime("%Y-%m-%d") + " to " + yesterday.strftime("%Y-%m-%d") + "    \" " + sys.argv[1]
-	print(mailString)
+	#print(mailString)
 	os.system(mailString)
 else:
 	print(output)
