@@ -4,6 +4,7 @@ import urllib2
 import os
 import datetime
 import MySQLdb
+import math
 from datetime import timedelta
 from Batters import *
 from Batter import *
@@ -287,7 +288,15 @@ for pl in pitcherLinks:
                 p = p[p.index("</td>")+5:]
                 hld = int(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
-                blsv = int(p[p.index(">")+1:find_nth(p, "<", 2)])
+                def is_int(s):
+                    try:
+                        int(s)
+                        return True
+                    except ValueError:
+                        return False
+                blsv = p[p.index(">")+1:find_nth(p, "<", 2)]
+                if not is_int(blsv):
+                    blsv = math.floor(blsv)
                 p = p[p.index("</td>")+5:]
                 whip = float(p[p.index(">")+1:find_nth(p, "<", 2)])
                 p = p[p.index("</td>")+5:]
